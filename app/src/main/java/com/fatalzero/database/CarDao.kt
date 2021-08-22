@@ -10,14 +10,14 @@ import com.fatalzero.model.Car
 @Dao
 interface CarDao{
 
-    @Query("SELECT * FROM car")
+    @Query("SELECT * FROM Car")
     fun getCars(): LiveData<List<Car>>
 
-    @Query("SELECT * FROM car WHERE id=(:id)")
+    @Query("SELECT * FROM Car WHERE id=(:id)")
     fun getCar(id:Int):LiveData<Car?>
 
     @Insert
-    fun addCrime(car:Car)
+    fun addCar(car:Car)
 
     @Update
     fun updateCar(car:Car)

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
 
     tools:context=".ui.CarFragment">
 
@@ -16,6 +16,7 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="@string/brandView"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +29,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="@string/modelView"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/brandTextView" />
@@ -40,6 +42,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="@string/mileageView"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modelTextView" />

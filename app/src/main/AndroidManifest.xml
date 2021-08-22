@@ -3,6 +3,7 @@
     package="com.fatalzero">
 
     <application
+        android:name=".ui.CarIntentApplicaion"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

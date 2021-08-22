@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.fatalzero.model.Car
 import com.fatalzero.databinding.FragmentCarBinding
 
-private class CarAdapter() : ListAdapter<Car, CarHolder>(DiffCallback) {
+class CarAdapter() : ListAdapter<Car, CarHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = FragmentCarBinding.inflate(layoutInflater, parent, false)
