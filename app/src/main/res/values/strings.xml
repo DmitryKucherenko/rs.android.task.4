@@ -2,4 +2,11 @@
     <string name="app_name">rs.android.task.4</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_brand">enter brand (for example Moskvich)</string>
+    <string name="enter_model">enter model (for example: 412)</string>
+    <string name="enter_mileage_km">enter mileage, km</string>
+    <string name="add_button">Add</string>
+    <string name="brandView">Bran:</string>
+    <string name="modelView">Model:</string>
+    <string name="mileageView">Mileage:</string>
 </resources>

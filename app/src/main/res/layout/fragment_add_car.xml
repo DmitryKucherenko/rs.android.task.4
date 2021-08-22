@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCarFragment"
+    tools:context=".ui.AddCarFragment"
     >
 
     <EditText
         android:id="@+id/brandName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:hint="enter brand (for example Moskvich)"
+        android:layout_marginTop="80dp"
+        android:hint="@string/enter_brand"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.639"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,18 +21,31 @@
         android:id="@+id/modelName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:hint="enter model (for example: 412)"
+        android:layout_marginTop="50dp"
+        android:hint="@string/enter_model"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/brandName" />
 
     <EditText
         android:id="@+id/mileage"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="enter mileage, km "
-        />
+        android:layout_marginTop="50dp"
+        android:hint="@string/enter_mileage_km"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modelName" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mileage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
