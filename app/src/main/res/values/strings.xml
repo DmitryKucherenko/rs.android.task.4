@@ -6,7 +6,7 @@
     <string name="enter_model">enter model (for example: 412)</string>
     <string name="enter_mileage_km">enter mileage, km</string>
     <string name="add_button">Add</string>
-    <string name="brandView">Bran:</string>
+    <string name="brandView">Brand:</string>
     <string name="modelView">Model:</string>
     <string name="mileageView">Mileage:</string>
 </resources>

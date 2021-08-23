@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CarListFragment: Fragment() {
 
+
+
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private lateinit var carRecyclerView:RecyclerView

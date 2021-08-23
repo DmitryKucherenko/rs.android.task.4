@@ -1,11 +1,13 @@
 package com.fatalzero.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fatalzero.R
+import com.fatalzero.model.Car
 
 
 private const val ARG_PARAM1 = "param1"
@@ -13,9 +15,19 @@ private const val ARG_PARAM2 = "param2"
 
 
 class CarFragment : Fragment() {
+    private var callBack:CallBack?=null
+    interface CallBack{
+        fun addCar(car: Car){}
+    }
 
     private var param1: String? = null
     private var param2: String? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callBack=context as CallBack
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
