@@ -1,6 +1,8 @@
 package com.fatalzero.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,19 @@ class CarListFragment: Fragment() {
         ViewModelProvider(this).get(CarListViewModel::class.java)
     }
 
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callBack=context as CallBack
+    }
+
+    interface CallBack{
+        fun openAddFragment(){}
+    }
+
+    private var callBack: CallBack?=null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         carListViewModel.carListLiveDate.observe(viewLifecycleOwner,
@@ -37,7 +52,7 @@ class CarListFragment: Fragment() {
                 }
 
             })
-       // updateUI(carListViewModel.carListLiveDate)
+
     }
 
     private fun updateUI(cars: List<Car>) {
@@ -58,8 +73,7 @@ class CarListFragment: Fragment() {
         carRecyclerView.layoutManager = LinearLayoutManager(context)
         carRecyclerView.adapter=adapter
         button?.setOnClickListener {
-            val car = Car()
-            carListViewModel.addCar(car)
+            callBack?.openAddFragment()
         }
         return view
     }

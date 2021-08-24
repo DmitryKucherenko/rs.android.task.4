@@ -4,7 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.fatalzero.database.CarRepository
 import com.fatalzero.model.Car
 
-class CarListViewModel: ViewModel() {
+class AddCarViewModel: ViewModel() {
     private val carRepository = CarRepository.get()
-    val carListLiveDate = carRepository.getCars()
+    var car:Car?=null
+
+    fun addCar(car: Car){
+        carRepository.addCar(car)
+    }
 }
+
+
