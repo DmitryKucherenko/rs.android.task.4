@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentManager
 import com.fatalzero.R
 import com.fatalzero.model.Car
 
-class MainActivity : AppCompatActivity(R.layout.activity_main),AddCarFragment.CallBack, CarListFragment.CallBack {
+class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
+    CarListFragment.CallBack {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),AddCarFragment.Ca
     }
 
     override fun openListFragment() {
-supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
 
 
     }
@@ -33,12 +34,12 @@ supportFragmentManager.popBackStack()
 
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-            val fragment = AddCarFragment.newInstance()
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
+        val fragment = AddCarFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
 
     }
 }
