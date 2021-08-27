@@ -23,7 +23,7 @@ private lateinit var car:Car
     private var callBack: CallBack?=null
 
     interface CallBack{
-        fun openListFragment(){}
+        fun openListFragmentBackStack(){}
     }
 
     val brandWatcher = object : TextWatcher {
@@ -117,7 +117,7 @@ private lateinit var car:Car
         binding.mileage.addTextChangedListener(miliageWatcher)
         addButton?.setOnClickListener{
             addCarViewModel.addCar(car)
-            callBack?.openListFragment()
+            callBack?.openListFragmentBackStack()
         }
         return binding.root
     }

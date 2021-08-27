@@ -7,11 +7,15 @@ import com.fatalzero.R
 import com.fatalzero.model.Car
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
-    CarListFragment.CallBack {
+    CarListFragment.CallBack,SortSettingsFragment.CallBack {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        openListFragment()
+    }
+
+    override fun openListFragment(){
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (containerFragment == null) {
             val fragment = CarListFragment.newInstance()
@@ -23,23 +27,29 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
         }
     }
 
-    override fun openListFragment() {
+    override fun openListFragmentBackStack() {
         supportFragmentManager.popBackStack()
 
 
     }
 
-    override fun openAddFragment() {
-
-
+    override fun openSettingsFragment(){
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        val fragment = SortSettingsFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
+    override fun openAddFragment() {
+        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         val fragment = AddCarFragment.newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
-
     }
 }

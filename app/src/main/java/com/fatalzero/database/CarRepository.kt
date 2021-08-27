@@ -18,7 +18,9 @@ class CarRepository private constructor(context: Context){
     private val carDao = database.carDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun getCars(): LiveData<List<Car>> = carDao.getCars()
+    fun getCars(order:String?): LiveData<List<Car>> {
+        println("ORDER PRILETEL $order")
+      return  carDao.getCarsOrderBy(requireNotNull(order))}
 
     fun getCar(id:Int):LiveData<Car?> = carDao.getCar(id)
 
@@ -27,6 +29,14 @@ class CarRepository private constructor(context: Context){
               carDao.updateCar(car)
           }
         }
+    fun deleteCar(car:Car){
+           executor.execute{
+              carDao.deleteCar(car)
+          }
+        }
+
+
+
     fun addCar(car:Car){
         executor.execute{
             carDao.addCar(car)
