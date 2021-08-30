@@ -1,16 +1,35 @@
 package com.fatalzero.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.fatalzero.database.CarRepository
 import com.fatalzero.model.Car
 
 class AddCarViewModel: ViewModel() {
     private val carRepository = CarRepository.get()
+
+    private val carIdLiveData = MutableLiveData<Int>()
+    var carLiveDate: LiveData<Car?> =
+        Transformations.switchMap(carIdLiveData){ carId->
+            carRepository.getCar(carId)
+        }
     var car:Car?=null
 
-    fun addCar(car: Car){
-        carRepository.addCar(car)
+    fun addCar(car1: Car){
+        println("FROM ADD FRAGMENT: $car1")
+        carRepository.addCar(car1)
     }
+
+    fun loadCar(carId:Int){
+        carIdLiveData.value = carId
+    }
+
+    fun update(car:Car){
+        carRepository.updateCar(car)
+    }
+
 }
 
 

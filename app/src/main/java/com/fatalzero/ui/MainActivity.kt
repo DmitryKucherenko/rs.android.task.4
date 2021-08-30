@@ -2,12 +2,10 @@ package com.fatalzero.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 import com.fatalzero.R
-import com.fatalzero.model.Car
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
-    CarListFragment.CallBack,SortSettingsFragment.CallBack {
+    CarListFragment.CallBack,SettingsFragment.CallBack,ItemSelected {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
 
     override fun openSettingsFragment(){
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        val fragment = SortSettingsFragment()
+        val fragment = SettingsFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -43,9 +41,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
             .commit()
     }
 
+
+
+
+
     override fun openAddFragment() {
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         val fragment = AddCarFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onItemSelected(id: Int) {
+        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        val fragment = AddCarFragment.newInstance(id)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)

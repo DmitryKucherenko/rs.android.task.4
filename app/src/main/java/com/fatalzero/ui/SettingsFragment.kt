@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceFragmentCompat
 import com.fatalzero.R
 
-class SortSettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat() {
 
     interface CallBack{
          fun openListFragment()

@@ -6,4 +6,4 @@ import androidx.room.PrimaryKey
 @Entity
 data class Car(
     @PrimaryKey(autoGenerate = true) val id:Int=0,
-    var brand:String="", var model:String="", var mileage: String ="")
+    var brand:String="", var model:String="", var mileage: Int =0)

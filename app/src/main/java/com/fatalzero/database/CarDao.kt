@@ -16,8 +16,8 @@ interface CarDao{
     @RawQuery(observedEntities = [Car::class])
     fun getCars( query:SupportSQLiteQuery): LiveData<List<Car>>
 
-    fun getCarsOrderBy(ord:String): LiveData<List<Car>>{
-        val statement = "SELECT * FROM Car ORDER BY $ord"
+    fun getCarsOrderBy(order:String): LiveData<List<Car>>{
+        val statement = "SELECT * FROM Car ORDER BY $order"
         val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
         return getCars(query)
     }

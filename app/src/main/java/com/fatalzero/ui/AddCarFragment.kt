@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fatalzero.databinding.FragmentAddCarBinding
 import com.fatalzero.model.Car
@@ -19,11 +20,13 @@ class AddCarFragment : Fragment() {
     private var _binding: FragmentAddCarBinding? = null
     private val binding get() = _binding!!
     private var addButton: Button? = null
-private lateinit var car:Car
+    private   var id:Int? = null
+    private lateinit var  car:Car
     private var callBack: CallBack?=null
 
     interface CallBack{
-        fun openListFragmentBackStack(){}
+        fun openListFragmentBackStack()
+
     }
 
     val brandWatcher = object : TextWatcher {
@@ -37,7 +40,7 @@ private lateinit var car:Car
             before: Int,
             count: Int
         ) {
-            addCarViewModel.car?.brand = sequence.toString()
+            car?.brand = sequence.toString()
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -57,13 +60,11 @@ private lateinit var car:Car
             before: Int,
             count: Int
         ) {
-            addCarViewModel.car?.model = sequence.toString()
+            car?.model = sequence.toString()
         }
 
         override fun afterTextChanged(s: Editable?) {
         }
-
-
     }
 
 
@@ -78,7 +79,7 @@ private lateinit var car:Car
             before: Int,
             count: Int
         ) {
-            addCarViewModel.car?.mileage = sequence.toString()
+            car?.mileage = sequence.toString().toIntOrNull()?:0
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -101,8 +102,14 @@ private lateinit var car:Car
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        car = Car()
-        addCarViewModel.car=car
+        val bundle = this.arguments
+         id=bundle?.getInt("id")
+        if(id!=null){
+              addCarViewModel.loadCar(id!!)
+        }else {
+            this.car=Car()
+            addCarViewModel.car = car
+        }
 
     }
 
@@ -116,9 +123,12 @@ private lateinit var car:Car
         binding.modelName.addTextChangedListener(modelWatcher)
         binding.mileage.addTextChangedListener(miliageWatcher)
         addButton?.setOnClickListener{
-            addCarViewModel.addCar(car)
+            if(id==null)
+            addCarViewModel.addCar(car) else
+                addCarViewModel.update(car)
             callBack?.openListFragmentBackStack()
         }
+
         return binding.root
     }
 
@@ -126,7 +136,35 @@ private lateinit var car:Car
     companion object {
 
         @JvmStatic
-        fun newInstance() =
-            AddCarFragment()
+        fun newInstance(id:Int?=null):AddCarFragment {
+            val addCarFragment = AddCarFragment()
+
+         id?.let{
+             val bundle = Bundle()
+             bundle.putInt("id",it)
+             addCarFragment.arguments=bundle
+         }
+return addCarFragment
+
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        addCarViewModel.carLiveDate.observe(
+            viewLifecycleOwner,
+            Observer { car ->
+                car?.let {
+                    this.car = it
+                    updateUI()
+                }
+            })
+    }
+
+    private fun updateUI() {
+        binding.brandName.setText(car.brand)
+        binding.modelName.setText(car.model)
+        binding.mileage.setText(car.mileage.toString())
     }
 }
