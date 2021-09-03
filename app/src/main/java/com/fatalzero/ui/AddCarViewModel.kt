@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.fatalzero.database.CarRepository
+import com.fatalzero.database.room.CarRepository
 import com.fatalzero.model.Car
 
 class AddCarViewModel: ViewModel() {
@@ -18,7 +18,6 @@ class AddCarViewModel: ViewModel() {
     var car:Car?=null
 
     fun addCar(car1: Car){
-        println("FROM ADD FRAGMENT: $car1")
         carRepository.addCar(car1)
     }
 
@@ -28,6 +27,10 @@ class AddCarViewModel: ViewModel() {
 
     fun update(car:Car){
         carRepository.updateCar(car)
+    }
+
+    fun delete(car:Car){
+        carRepository.deleteCar(car)
     }
 
 }

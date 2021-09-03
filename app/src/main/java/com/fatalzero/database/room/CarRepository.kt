@@ -1,4 +1,4 @@
-package com.fatalzero.database
+package com.fatalzero.database.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -53,7 +53,7 @@ class CarRepository private constructor(context: Context){
                 INSTANCE = CarRepository(context)
             }
         }
-        fun get():CarRepository{
+        fun get(): CarRepository {
             return INSTANCE ?:
             throw IllegalStateException("CarRepository must be initialized")
         }

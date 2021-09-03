@@ -1,5 +1,5 @@
 package com.fatalzero.ui
 
-interface ItemSelected {
-    fun onItemSelected(id:Int)
+interface ItemClickListener {
+    fun onItemClick(id:Int)
 }

@@ -1,4 +1,4 @@
-package com.fatalzero.database
+package com.fatalzero.database.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -10,8 +10,6 @@ import com.fatalzero.model.Car
 @Dao
 interface CarDao{
 
-//    @Query("SELECT * FROM Car ORDER BY :ord")
-//    fun getCars(ord:String): LiveData<List<Car>>
 
     @RawQuery(observedEntities = [Car::class])
     fun getCars( query:SupportSQLiteQuery): LiveData<List<Car>>

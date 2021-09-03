@@ -30,6 +30,8 @@
     <EditText
         android:id="@+id/mileage"
         android:layout_width="300dp"
+        android:inputType="number"
+        android:maxLength="10"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:hint="@string/enter_mileage_km"
@@ -38,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/modelName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -47,5 +49,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mileage" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

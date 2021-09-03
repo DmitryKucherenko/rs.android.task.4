@@ -53,7 +53,7 @@ class CarListFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack=context as CallBack
-        itemSelected=context as ItemSelected
+        itemClickListener=context as ItemClickListener
     }
 
 
@@ -69,7 +69,7 @@ class CarListFragment: Fragment() {
     }
 
     private var callBack: CallBack?=null
-    private var itemSelected:ItemSelected? = null
+    private var itemClickListener:ItemClickListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,7 +106,7 @@ class CarListFragment: Fragment() {
         button = binding.floatingActionButton
         carRecyclerView = binding.carRecyclerView
         carRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter= CarAdapter(itemSelected!!)
+        adapter= CarAdapter(itemClickListener!!)
         carRecyclerView.adapter=adapter
         button?.setOnClickListener {
             callBack?.openAddFragment()

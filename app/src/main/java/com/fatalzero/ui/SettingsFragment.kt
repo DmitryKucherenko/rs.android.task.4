@@ -11,9 +11,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     interface CallBack{
          fun openListFragment()
     }
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings,rootKey)

@@ -19,95 +19,59 @@ class AddCarFragment : Fragment() {
 
     private var _binding: FragmentAddCarBinding? = null
     private val binding get() = _binding!!
-    private var addButton: Button? = null
-    private   var id:Int? = null
-    private lateinit var  car:Car
-    private var callBack: CallBack?=null
+    private var saveButton: Button? = null
+    private var delButton: Button? = null
+    private var id: Int? = null
+    private lateinit var car: Car
+    private var callBack: CallBack? = null
 
-    interface CallBack{
+    interface CallBack {
         fun openListFragmentBackStack()
 
     }
 
-    val brandWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    private fun textWatcher(actionTextChange:(sequence: CharSequence?)->Unit)
+        = object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { actionTextChange(sequence)}
+
+            override fun afterTextChanged(s: Editable?) {}
         }
 
 
-        override fun onTextChanged(
-            sequence: CharSequence?,
-            start: Int,
-            before: Int,
-            count: Int
-        ) {
-            car?.brand = sequence.toString()
-        }
+    private val brandWatcher = textWatcher{ car.brand = it.toString()}
 
-        override fun afterTextChanged(s: Editable?) {
-        }
+    private val modelWatcher = textWatcher{ car.mileage = it.toString().toIntOrNull() ?: 0}
+
+    private val mileageWatcher = textWatcher{car.model = it.toString()}
 
 
-    }
-
-    val modelWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-
-        override fun onTextChanged(
-            sequence: CharSequence?,
-            start: Int,
-            before: Int,
-            count: Int
-        ) {
-            car?.model = sequence.toString()
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-        }
-    }
-
-
-    val miliageWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-
-        override fun onTextChanged(
-            sequence: CharSequence?,
-            start: Int,
-            before: Int,
-            count: Int
-        ) {
-            car?.mileage = sequence.toString().toIntOrNull()?:0
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-
-    }
-
-    private val addCarViewModel: AddCarViewModel by lazy{
+    private val addCarViewModel: AddCarViewModel by lazy {
         ViewModelProvider(this).get(AddCarViewModel::class.java)
     }
 
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callBack=context as CallBack
+        callBack = context as CallBack
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = this.arguments
-         id=bundle?.getInt("id")
-        if(id!=null){
-              addCarViewModel.loadCar(id!!)
-        }else {
-            this.car=Car()
+        id = bundle?.getInt("id")
+        if (id != null) {
+            addCarViewModel.loadCar(id!!)
+        } else {
+            this.car = Car()
             addCarViewModel.car = car
         }
 
@@ -116,18 +80,26 @@ class AddCarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddCarBinding.inflate(inflater, container, false)
-        addButton=binding.button
+        saveButton = binding.saveButton
+        delButton = binding.deleteButton
+        if(id == null) delButton?.visibility=View.INVISIBLE
+        else delButton?.visibility=View.VISIBLE
         binding.brandName.addTextChangedListener(brandWatcher)
         binding.modelName.addTextChangedListener(modelWatcher)
-        binding.mileage.addTextChangedListener(miliageWatcher)
-        addButton?.setOnClickListener{
-            if(id==null)
-            addCarViewModel.addCar(car) else
+        binding.mileage.addTextChangedListener(mileageWatcher)
+        saveButton?.setOnClickListener {
+            if (id == null)
+                addCarViewModel.addCar(car) else
                 addCarViewModel.update(car)
             callBack?.openListFragmentBackStack()
         }
+        delButton?.setOnClickListener{
+            addCarViewModel.delete(car)
+            callBack?.openListFragmentBackStack()
+        }
+
 
         return binding.root
     }
@@ -136,15 +108,15 @@ class AddCarFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(id:Int?=null):AddCarFragment {
+        fun newInstance(id: Int? = null): AddCarFragment {
             val addCarFragment = AddCarFragment()
 
-         id?.let{
-             val bundle = Bundle()
-             bundle.putInt("id",it)
-             addCarFragment.arguments=bundle
-         }
-return addCarFragment
+            id?.let {
+                val bundle = Bundle()
+                bundle.putInt("id", it)
+                addCarFragment.arguments = bundle
+            }
+            return addCarFragment
 
         }
     }

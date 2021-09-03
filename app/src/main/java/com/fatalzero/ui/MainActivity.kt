@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.fatalzero.R
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
-    CarListFragment.CallBack,SettingsFragment.CallBack,ItemSelected {
+    CarListFragment.CallBack,SettingsFragment.CallBack,ItemClickListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
             .commit()
     }
 
-    override fun onItemSelected(id: Int) {
+    override fun onItemClick(id: Int) {
         val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         val fragment = AddCarFragment.newInstance(id)
         supportFragmentManager

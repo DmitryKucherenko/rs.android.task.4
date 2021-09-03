@@ -1,17 +1,14 @@
 package com.fatalzero.adapter
 
 import android.content.res.Resources
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fatalzero.databinding.FragmentCarBinding
 import com.fatalzero.model.Car
-import com.fatalzero.ui.AddCarFragment
-import com.fatalzero.ui.ItemSelected
-import javax.security.auth.callback.Callback
+import com.fatalzero.ui.ItemClickListener
 
 class CarHolder(
-    private val itemSelected:ItemSelected,
+    private val itemClickListener:ItemClickListener,
     private val binding: FragmentCarBinding,
     private val resources: Resources
 
@@ -28,7 +25,7 @@ class CarHolder(
         model.text = car.model
         mileage.text = car.mileage.toString()
         itemView.setOnClickListener{
-            itemSelected.onItemSelected(car.id)
+            itemClickListener.onItemClick(car.id)
         }
 
 
