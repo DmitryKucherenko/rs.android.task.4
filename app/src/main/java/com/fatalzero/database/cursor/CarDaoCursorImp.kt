@@ -8,8 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.fatalzero.database.room.CarDao
 import com.fatalzero.model.Car
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.concurrent.Executors
 
 
 private const val LOG_TAG = "SQLiteOpenHelper"
@@ -24,7 +28,7 @@ private const val CREATE_TABLE_SQL =
             "mileage	INTEGER NOT NULL," +
             "PRIMARY KEY(id AUTOINCREMENT)" +
             ");"
-
+private val executor = Executors.newSingleThreadExecutor()
 
 class CarDatabaseCursor(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION), CarDao {
@@ -44,31 +48,40 @@ class CarDatabaseCursor(context: Context) :
 
 
 
+
+    suspend fun getCarsList(orderList:String):List<Car>{
+        return withContext(Dispatchers.IO) {
+            val listOfCars = mutableListOf<Car>()
+            val db = writableDatabase
+            val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $orderList"
+            val cursor = db.rawQuery(selectQuery,null)
+            cursor?.let{
+                if (cursor.moveToFirst()) {
+                    do {
+                        val id = cursor.getInt(cursor.getColumnIndex("id"))
+                        val brand = cursor.getString(cursor.getColumnIndex("brand"))
+                        val model = cursor.getString(cursor.getColumnIndex("model"))
+                        val mileage = cursor.getInt(cursor.getColumnIndex("mileage"))
+                        listOfCars.add(Car(id, brand, model, mileage))
+                    } while (cursor.moveToNext())
+                }
+            }
+            cursor.close()
+             listOfCars
+        }
+    }
     override fun getCarsOrderBy(order: String): LiveData<List<Car>> {
         Log.d(LOG_TAG, "Cursor getCarsOrderBy($order)")
-        val carListLiveData = MutableLiveData<List<Car>>()
-        val listOfCars = mutableListOf<Car>()
-        val db = writableDatabase
-        val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $order"
-        val cursor = db.rawQuery(selectQuery,null)
-        cursor?.let{
-            if (cursor.moveToFirst()) {
-                do {
-                    val id = cursor.getInt(cursor.getColumnIndex("id"))
-                    val brand = cursor.getString(cursor.getColumnIndex("brand"))
-                    val model = cursor.getString(cursor.getColumnIndex("model"))
-                    val mileage = cursor.getInt(cursor.getColumnIndex("mileage"))
-                    listOfCars.add(Car(id, brand, model, mileage))
-                } while (cursor.moveToNext())
-            }
+
+        return liveData<List<Car>> {
+            emit(getCarsList(order))
         }
-        cursor.close()
-        carListLiveData.value = listOfCars
-        return carListLiveData
     }
 
+
+
     override fun getCar(id: Int): LiveData<Car?> {
-        Log.d(LOG_TAG, "getCar($id)")
+
         val carLiveData = MutableLiveData<Car>()
         val db = writableDatabase
 
@@ -78,7 +91,6 @@ class CarDatabaseCursor(context: Context) :
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-
                     val id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
                     val brand = cursor.getString(cursor.getColumnIndex("brand"))
                     val model = cursor.getString(cursor.getColumnIndex("model"))
