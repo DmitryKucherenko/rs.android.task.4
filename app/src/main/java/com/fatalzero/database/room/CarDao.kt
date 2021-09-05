@@ -11,14 +11,21 @@ import com.fatalzero.model.Car
 interface CarDao{
 
 
-    @RawQuery(observedEntities = [Car::class])
-    fun getCars( query:SupportSQLiteQuery): LiveData<List<Car>>
+//    @RawQuery(observedEntities = [Car::class])
+//    fun getCars( query:SupportSQLiteQuery): LiveData<List<Car>>
 
-    fun getCarsOrderBy(order:String): LiveData<List<Car>>{
-        val statement = "SELECT * FROM Car ORDER BY $order"
-        val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
-        return getCars(query)
-    }
+//    fun getCarsOrderBy(order:String): LiveData<List<Car>>{
+//        val statement = "SELECT * FROM Car ORDER BY $order"
+//
+//        val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
+//        return getCars(query)
+//    }
+    @Query("SELECT * FROM Car ORDER BY " +
+            "CASE WHEN :order = 'brand' THEN brand END,"+
+            "CASE WHEN :order = 'model' THEN model END,"+
+            "CASE WHEN :order = 'mileage' THEN mileage END")
+    fun getCarsOrderBy(order:String): LiveData<List<Car>>
+
 
 
     @Query("SELECT * FROM Car WHERE id=(:id)")

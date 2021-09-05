@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+
 import com.fatalzero.databinding.FragmentAddCarBinding
 import com.fatalzero.model.Car
 
@@ -48,12 +49,13 @@ class AddCarFragment : Fragment() {
 
     private val brandWatcher = textWatcher{ car.brand = it.toString()}
 
-    private val modelWatcher = textWatcher{ car.mileage = it.toString().toIntOrNull() ?: 0}
+    private val modelWatcher = textWatcher{ car.model = it.toString()}
 
-    private val mileageWatcher = textWatcher{car.model = it.toString()}
+    private val mileageWatcher = textWatcher{car.mileage = it.toString().toIntOrNull() ?: 0}
 
 
     private val addCarViewModel: AddCarViewModel by lazy {
+
         ViewModelProvider(this).get(AddCarViewModel::class.java)
     }
 
@@ -66,6 +68,9 @@ class AddCarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         val bundle = this.arguments
         id = bundle?.getInt("id")
         if (id != null) {
@@ -90,6 +95,7 @@ class AddCarFragment : Fragment() {
         binding.modelName.addTextChangedListener(modelWatcher)
         binding.mileage.addTextChangedListener(mileageWatcher)
         saveButton?.setOnClickListener {
+            println("FROM ADD CAR $car")
             if (id == null)
                 addCarViewModel.addCar(car) else
                 addCarViewModel.update(car)
