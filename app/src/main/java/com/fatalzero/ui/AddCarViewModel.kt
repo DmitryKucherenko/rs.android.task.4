@@ -15,10 +15,10 @@ class AddCarViewModel: ViewModel() {
         Transformations.switchMap(carIdLiveData){ carId->
             carRepository.getCar(carId)
         }
-    var car:Car?=null
 
-    fun addCar(car1: Car){
-        carRepository.addCar(car1)
+
+    fun addCar(car: Car){
+        carRepository.addCar(car)
     }
 
     fun loadCar(carId:Int){

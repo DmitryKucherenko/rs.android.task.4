@@ -68,17 +68,18 @@ class AddCarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+       // if(addCarViewModel.carLiveDate.value!=null)this.car= addCarViewModel.carLiveDate.value!!
+        car = Car()
 
 
 
-        val bundle = this.arguments
-        id = bundle?.getInt("id")
-        if (id != null) {
-            addCarViewModel.loadCar(id!!)
-        } else {
-            this.car = Car()
-            addCarViewModel.car = car
-        }
+        id = arguments?.getInt("id")
+
+
+            addCarViewModel.loadCar(requireNotNull(id))
+
+
+            //addCarViewModel.carLiveDate.value = car
 
     }
 

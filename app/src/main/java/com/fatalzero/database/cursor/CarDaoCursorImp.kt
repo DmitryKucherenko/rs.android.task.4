@@ -46,10 +46,7 @@ class CarDatabaseCursor(context: Context) :
     }
 
 
-
-
-
-    suspend fun getCarsList(orderList:String):List<Car>{
+    private suspend fun getCarsList(orderList:String):List<Car>{
         return withContext(Dispatchers.IO) {
             val listOfCars = mutableListOf<Car>()
             val db = writableDatabase
@@ -91,7 +88,7 @@ class CarDatabaseCursor(context: Context) :
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    val id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
+
                     val brand = cursor.getString(cursor.getColumnIndex("brand"))
                     val model = cursor.getString(cursor.getColumnIndex("model"))
                     val mileage = cursor.getInt(cursor.getColumnIndex("mileage"))
@@ -112,16 +109,10 @@ class CarDatabaseCursor(context: Context) :
         Log.d(LOG_TAG, "Cursor addCar($car)")
         val db = writableDatabase
         val values = ContentValues()
-//        values.put("id",car.id)
         values.put("brand",car.brand)
         values.put("model",car.model)
         values.put("mileage",car.mileage)
         db.insert(TABLE_NAME, null, values)
-        
-
-         //db.execSQL("INSERT INTO $TABLE_NAME VALUES ('${car.id}','${car.brand}','${car.model}','${car.mileage}');")
-
-
         db.close()
     }
 
