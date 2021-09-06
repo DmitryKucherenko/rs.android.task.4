@@ -69,7 +69,6 @@ class CarDatabaseCursor(context: Context) :
     }
     override fun getCarsOrderBy(order: String): LiveData<List<Car>> {
         Log.d(LOG_TAG, "Cursor getCarsOrderBy($order)")
-
         return liveData<List<Car>> {
             emit(getCarsList(order))
         }
@@ -92,7 +91,6 @@ class CarDatabaseCursor(context: Context) :
                     val brand = cursor.getString(cursor.getColumnIndex("brand"))
                     val model = cursor.getString(cursor.getColumnIndex("model"))
                     val mileage = cursor.getInt(cursor.getColumnIndex("mileage"))
-                    Log.d(LOG_TAG, "FROM GET CAR CURSOR $id $brand $model $mileage")
                     val car =  Car(id, brand, model, mileage)
                     Log.d(LOG_TAG, "FROM GET CAR CURSOR $car")
                     carLiveData.value = car
@@ -100,7 +98,6 @@ class CarDatabaseCursor(context: Context) :
             }
         }
             cursor.close()
-        Log.d(LOG_TAG, "FROM GET CAR CURSOR ${carLiveData.value}")
             return carLiveData
         }
 

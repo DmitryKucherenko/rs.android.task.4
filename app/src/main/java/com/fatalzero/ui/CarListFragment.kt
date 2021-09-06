@@ -17,17 +17,17 @@ import com.fatalzero.model.Car
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class CarListFragment: Fragment() {
+class CarListFragment : Fragment() {
 
     private val TAG = "myLogs"
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var carRecyclerView:RecyclerView
-    private  var adapter: CarAdapter?= null
-    private var button:FloatingActionButton?=null
+    private lateinit var carRecyclerView: RecyclerView
+    private var adapter: CarAdapter? = null
+    private var button: FloatingActionButton? = null
     private var sp: SharedPreferences? = null
-    private val carListViewModel: CarListViewModel by lazy{
+    private val carListViewModel: CarListViewModel by lazy {
         ViewModelProvider(this).get(CarListViewModel::class.java)
     }
 
@@ -52,46 +52,45 @@ class CarListFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callBack=context as CallBack
-        itemClickListener=context as ItemClickListener
+        callBack = context as CallBack
+        itemClickListener = context as ItemClickListener
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.sort_menu,menu)
+        inflater.inflate(R.menu.sort_menu, menu)
     }
 
-    interface CallBack{
+    interface CallBack {
         fun openAddFragment()
         fun openSettingsFragment()
 
     }
 
-    private var callBack: CallBack?=null
-    private var itemClickListener:ItemClickListener? = null
+    private var callBack: CallBack? = null
+    private var itemClickListener: ItemClickListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val order = sharedPreferences.getString("sort_by","brand")?:"brand"
+        val order = sharedPreferences.getString("sort_by", "brand") ?: "brand"
 
 
         carListViewModel.sortBy(order)
         carListViewModel.carListLiveData.observe(viewLifecycleOwner,
-            {cars ->
-                cars?.let{
+            { cars ->
+                cars?.let {
                     updateUI(it)
 
                 }
             })
 
 
-
     }
 
     private fun updateUI(cars: List<Car>) {
-        Log.d(TAG,"${cars.size}")
+        Log.d(TAG, "${cars.size}")
         adapter?.submitList(cars)
     }
 
@@ -101,13 +100,13 @@ class CarListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding  = FragmentListBinding.inflate(inflater,container,false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
         button = binding.floatingActionButton
         carRecyclerView = binding.carRecyclerView
         carRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter= CarAdapter(itemClickListener!!)
-        carRecyclerView.adapter=adapter
+        adapter = CarAdapter(itemClickListener!!)
+        carRecyclerView.adapter = adapter
         button?.setOnClickListener {
             callBack?.openAddFragment()
         }
@@ -115,15 +114,12 @@ class CarListFragment: Fragment() {
     }
 
 
-
-    companion object{
-        fun newInstance():CarListFragment{
+    companion object {
+        fun newInstance(): CarListFragment {
             return CarListFragment()
         }
 
     }
-
-
 
 
     override fun onDestroyView() {

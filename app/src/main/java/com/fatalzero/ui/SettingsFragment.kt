@@ -1,8 +1,6 @@
 package com.fatalzero.ui
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceFragmentCompat
 import com.fatalzero.R
 

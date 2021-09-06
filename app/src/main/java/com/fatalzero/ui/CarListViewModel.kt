@@ -11,7 +11,9 @@ class CarListViewModel: ViewModel() {
     private var sort:MutableLiveData<String> = MutableLiveData("brand")
 
     private val carRepository = CarRepository.get()
-    var carListLiveData: LiveData<List<Car>> = Transformations.switchMap(sort){ order -> carRepository.getCars(order)}
+    var carListLiveData: LiveData<List<Car>> = Transformations.switchMap(sort){
+            order -> carRepository.getCars(order)
+    }
 
     fun sortBy(order:String){
         sort.value=order

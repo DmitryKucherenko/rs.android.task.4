@@ -2,66 +2,42 @@ package com.fatalzero.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.fatalzero.R
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
     CarListFragment.CallBack,SettingsFragment.CallBack,ItemClickListener {
 
+    private var navController: NavController?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openListFragment()
+        navController = this.findNavController(R.id.fragment_container)
     }
 
-    override fun openListFragment(){
-        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (containerFragment == null) {
-            val fragment = CarListFragment.newInstance()
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
-    }
 
-    override fun openListFragmentBackStack() {
-        supportFragmentManager.popBackStack()
 
+
+    override fun openListFragment() {
+        navController?.popBackStack()
 
     }
 
     override fun openSettingsFragment(){
-        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        val fragment = SettingsFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        navController?.navigate(R.id.action_carListFragment_to_settingsFragment)
     }
-
-
 
 
 
     override fun openAddFragment() {
-        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        val fragment = AddCarFragment.newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        navController?.navigate(R.id.action_carListFragment_to_addCarFragment)
     }
 
     override fun onItemClick(id: Int) {
-        val containerFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        val fragment = AddCarFragment.newInstance(id)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        navController?.navigate(R.id.action_carListFragment_to_addCarFragment,bundleOf("id" to id))
     }
 }
