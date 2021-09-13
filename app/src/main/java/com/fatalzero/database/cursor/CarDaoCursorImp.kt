@@ -29,6 +29,7 @@ private const val CREATE_TABLE_SQL =
             "PRIMARY KEY(id AUTOINCREMENT)" +
             ");"
 private val executor = Executors.newSingleThreadExecutor()
+//private listCalLiveData = MutableLiveData(getCarsList())
 
 class CarDatabaseCursor(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION), CarDao {
