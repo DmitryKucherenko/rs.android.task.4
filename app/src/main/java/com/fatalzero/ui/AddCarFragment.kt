@@ -24,7 +24,11 @@ class AddCarFragment : Fragment() {
     private var saveButton: Button? = null
     private var delButton: Button? = null
     private var id: Int? = null
-    private val addCarViewModel: AddCarViewModel by activityViewModels()
+//    private val addCarViewModel: AddCarViewModel by activityViewModels()
+private val addCarViewModel: AddCarViewModel by lazy {
+
+    ViewModelProvider(this).get(AddCarViewModel::class.java)
+}
 
     private var callBack: CallBack? = null
 
@@ -64,6 +68,7 @@ class AddCarFragment : Fragment() {
         super.onAttach(context)
         callBack = context as CallBack
 
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +76,7 @@ class AddCarFragment : Fragment() {
 
         id = arguments?.getInt("id")
         id?.let { addCarViewModel.loadCar(it) }
+
 
 
     }
@@ -82,8 +88,12 @@ class AddCarFragment : Fragment() {
         _binding = FragmentAddCarBinding.inflate(inflater, container, false)
         saveButton = binding.saveButton
         delButton = binding.deleteButton
-        if (id == null) delButton?.visibility = View.INVISIBLE
+        if (id == null){
+            delButton?.visibility = View.INVISIBLE
+            updateUI()
+        }
         else delButton?.visibility = View.VISIBLE
+
         binding.brandName.addTextChangedListener(brandWatcher)
         binding.modelName.addTextChangedListener(modelWatcher)
         binding.mileage.addTextChangedListener(mileageWatcher)

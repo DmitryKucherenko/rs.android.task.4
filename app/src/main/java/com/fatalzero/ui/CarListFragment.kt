@@ -18,6 +18,9 @@ import com.fatalzero.model.Car
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
+private const val SORT_BY = "sort_by"
+private const val BRAND_FIELD = "brand"
+
 class CarListFragment : Fragment() {
 
     private val TAG = "myLogs"
@@ -70,7 +73,7 @@ class CarListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val order = sharedPreferences.getString("sort_by", "brand") ?: "brand"
+        val order = sharedPreferences.getString(SORT_BY, BRAND_FIELD) ?: BRAND_FIELD
 
 
         carListViewModel.sortBy(order)

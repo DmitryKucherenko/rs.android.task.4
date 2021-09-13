@@ -9,6 +9,8 @@ import com.fatalzero.model.Car
 import java.util.concurrent.Executors
 
 private const val DATABASE_NAME ="car-database"
+private const val SWITCH="switch"
+private const val REPO_INIT_ERR_MESS="CarRepository must be initialized"
 
 class CarRepository private constructor(val context: Context){
     private val database: CarDatabase =
@@ -22,7 +24,7 @@ class CarRepository private constructor(val context: Context){
     private var carDao:CarDao=database.carDao()
       get(){
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val dataSource = sharedPreferences.getBoolean("switch",true)
+            val dataSource = sharedPreferences.getBoolean(SWITCH,true)
              return if(dataSource) database.carDao() else
                  CarDatabaseCursor(context)
         }
@@ -66,7 +68,7 @@ class CarRepository private constructor(val context: Context){
         }
         fun get(): CarRepository {
             return INSTANCE ?:
-            throw IllegalStateException("CarRepository must be initialized")
+            throw IllegalStateException(REPO_INIT_ERR_MESS)
         }
     }
 }

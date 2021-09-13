@@ -8,6 +8,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.fatalzero.R
 
+private const val ID = "id"
+
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
     CarListFragment.CallBack,ItemClickListener {
 
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
     }
 
     override fun onItemClick(id: Int) {
-        navController?.navigate(R.id.action_carListFragment_to_addCarFragment,bundleOf("id" to id))
+        navController?.navigate(R.id.action_carListFragment_to_addCarFragment,bundleOf(ID to id))
     }
 }
+

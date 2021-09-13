@@ -9,6 +9,8 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.fatalzero.R
 
+
+
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
      var  sharedPreferences:SharedPreferences? = null
      var listPreference: ListPreference?=null
