@@ -75,7 +75,6 @@ class CarDatabaseCursor(context: Context) :
     }
 
 
-
     override fun getCar(id: Int): LiveData<Car?> {
 
         val carLiveData = MutableLiveData<Car>()

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +28,8 @@ class CarListFragment : Fragment() {
     private var adapter: CarAdapter? = null
     private var button: FloatingActionButton? = null
     private var sp: SharedPreferences? = null
-    private val carListViewModel: CarListViewModel by lazy {
-        ViewModelProvider(this).get(CarListViewModel::class.java)
-    }
+    private val carListViewModel: CarListViewModel by activityViewModels()
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

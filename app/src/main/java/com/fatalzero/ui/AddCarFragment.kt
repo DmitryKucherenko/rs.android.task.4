@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
@@ -54,10 +55,8 @@ class AddCarFragment : Fragment() {
     private val mileageWatcher = textWatcher { car.mileage = it.toString().toIntOrNull() ?: 0 }
 
 
-    private val addCarViewModel: AddCarViewModel by lazy {
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
 
-        ViewModelProvider(this).get(AddCarViewModel::class.java)
-    }
 
 
     override fun onAttach(context: Context) {
