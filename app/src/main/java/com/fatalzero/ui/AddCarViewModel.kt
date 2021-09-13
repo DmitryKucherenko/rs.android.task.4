@@ -9,7 +9,7 @@ import com.fatalzero.model.Car
 
 class AddCarViewModel : ViewModel() {
     private val carRepository = CarRepository.get()
-
+    var car: Car =  Car()
     private val carIdLiveData = MutableLiveData<Int>()
     var carLiveDate: LiveData<Car?> =
         Transformations.switchMap(carIdLiveData) {

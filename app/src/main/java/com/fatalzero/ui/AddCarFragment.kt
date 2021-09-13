@@ -24,7 +24,8 @@ class AddCarFragment : Fragment() {
     private var saveButton: Button? = null
     private var delButton: Button? = null
     private var id: Int? = null
-    private lateinit var car: Car
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
+
     private var callBack: CallBack? = null
 
     interface CallBack {
@@ -50,12 +51,12 @@ class AddCarFragment : Fragment() {
         }
 
 
-    private val brandWatcher = textWatcher { car.brand = it.toString() }
-    private val modelWatcher = textWatcher { car.model = it.toString() }
-    private val mileageWatcher = textWatcher { car.mileage = it.toString().toIntOrNull() ?: 0 }
+    private val brandWatcher = textWatcher { addCarViewModel.car.brand = it.toString() }
+    private val modelWatcher = textWatcher { addCarViewModel.car.model = it.toString() }
+    private val mileageWatcher = textWatcher { addCarViewModel.car.mileage = it.toString().toIntOrNull() ?: 0 }
 
 
-    private val addCarViewModel: AddCarViewModel by activityViewModels()
+
 
 
 
@@ -67,7 +68,7 @@ class AddCarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        car = Car()
+
         id = arguments?.getInt("id")
         id?.let { addCarViewModel.loadCar(it) }
 
@@ -88,12 +89,12 @@ class AddCarFragment : Fragment() {
         binding.mileage.addTextChangedListener(mileageWatcher)
         saveButton?.setOnClickListener {
             if (id == null)
-                addCarViewModel.addCar(car) else
-                addCarViewModel.update(car)
+                addCarViewModel.addCar(addCarViewModel.car) else
+                addCarViewModel.update(addCarViewModel.car)
             callBack?.openListFragment()
         }
         delButton?.setOnClickListener {
-            addCarViewModel.delete(car)
+            addCarViewModel.delete(addCarViewModel.car)
             callBack?.openListFragment()
         }
 
@@ -108,15 +109,15 @@ class AddCarFragment : Fragment() {
             viewLifecycleOwner,
             { car ->
                 car?.let {
-                    this.car = it
+                    this.addCarViewModel.car = it
                     updateUI()
                 }
             })
     }
 
     private fun updateUI() {
-        binding.brandName.setText(car.brand)
-        binding.modelName.setText(car.model)
-        binding.mileage.setText(car.mileage.toString())
+        binding.brandName.setText(addCarViewModel.car.brand)
+        binding.modelName.setText(addCarViewModel.car.model)
+        binding.mileage.setText(addCarViewModel.car.mileage.toString())
     }
 }

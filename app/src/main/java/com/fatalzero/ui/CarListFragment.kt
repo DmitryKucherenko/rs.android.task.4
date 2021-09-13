@@ -27,7 +27,6 @@ class CarListFragment : Fragment() {
     private lateinit var carRecyclerView: RecyclerView
     private var adapter: CarAdapter? = null
     private var button: FloatingActionButton? = null
-    private var sp: SharedPreferences? = null
     private val carListViewModel: CarListViewModel by activityViewModels()
 
 
@@ -46,9 +45,7 @@ class CarListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +62,6 @@ class CarListFragment : Fragment() {
     interface CallBack {
         fun openAddFragment()
         fun openSettingsFragment()
-
     }
 
     private var callBack: CallBack? = null
@@ -82,7 +78,6 @@ class CarListFragment : Fragment() {
             { cars ->
                 cars?.let {
                     updateUI(it)
-
                 }
             })
 
@@ -105,7 +100,7 @@ class CarListFragment : Fragment() {
         button = binding.floatingActionButton
         carRecyclerView = binding.carRecyclerView
         carRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = CarAdapter(itemClickListener!!)
+        adapter = itemClickListener?.let { CarAdapter(it) }
         carRecyclerView.adapter = adapter
         button?.setOnClickListener {
             callBack?.openAddFragment()
@@ -113,13 +108,6 @@ class CarListFragment : Fragment() {
         return view
     }
 
-
-    companion object {
-        fun newInstance(): CarListFragment {
-            return CarListFragment()
-        }
-
-    }
 
 
     override fun onDestroyView() {
