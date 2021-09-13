@@ -49,7 +49,6 @@ class CarListFragment : Fragment() {
     }
 
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = context as CallBack
@@ -110,7 +109,6 @@ class CarListFragment : Fragment() {
         }
         return view
     }
-
 
 
     override fun onDestroyView() {

@@ -11,9 +11,9 @@ import com.fatalzero.R
 private const val ID = "id"
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
-    CarListFragment.CallBack,ItemClickListener {
+    CarListFragment.CallBack, ItemClickListener {
 
-    private var navController: NavController?=null
+    private var navController: NavController? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,17 +22,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
     }
 
 
-
-
     override fun openListFragment() {
         navController?.popBackStack()
-
     }
 
-    override fun openSettingsFragment(){
+    override fun openSettingsFragment() {
         navController?.navigate(R.id.action_carListFragment_to_settingsFragment)
     }
-
 
 
     override fun openAddFragment() {
@@ -40,7 +36,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.C
     }
 
     override fun onItemClick(id: Int) {
-        navController?.navigate(R.id.action_carListFragment_to_addCarFragment,bundleOf(ID to id))
+        navController?.navigate(R.id.action_carListFragment_to_addCarFragment, bundleOf(ID to id))
     }
 }
 

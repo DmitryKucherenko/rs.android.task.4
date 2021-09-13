@@ -24,11 +24,11 @@ class AddCarFragment : Fragment() {
     private var saveButton: Button? = null
     private var delButton: Button? = null
     private var id: Int? = null
-//    private val addCarViewModel: AddCarViewModel by activityViewModels()
-private val addCarViewModel: AddCarViewModel by lazy {
 
-    ViewModelProvider(this).get(AddCarViewModel::class.java)
-}
+    private val addCarViewModel: AddCarViewModel by lazy {
+
+        ViewModelProvider(this).get(AddCarViewModel::class.java)
+    }
 
     private var callBack: CallBack? = null
 
@@ -57,27 +57,20 @@ private val addCarViewModel: AddCarViewModel by lazy {
 
     private val brandWatcher = textWatcher { addCarViewModel.car.brand = it.toString() }
     private val modelWatcher = textWatcher { addCarViewModel.car.model = it.toString() }
-    private val mileageWatcher = textWatcher { addCarViewModel.car.mileage = it.toString().toIntOrNull() ?: 0 }
-
-
-
-
+    private val mileageWatcher =
+        textWatcher { addCarViewModel.car.mileage = it.toString().toIntOrNull() ?: 0 }
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = context as CallBack
-
-
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         id = arguments?.getInt("id")
         id?.let { addCarViewModel.loadCar(it) }
-
-
 
     }
 
@@ -88,12 +81,8 @@ private val addCarViewModel: AddCarViewModel by lazy {
         _binding = FragmentAddCarBinding.inflate(inflater, container, false)
         saveButton = binding.saveButton
         delButton = binding.deleteButton
-        if (id == null){
-            delButton?.visibility = View.INVISIBLE
-            updateUI()
-        }
+        if (id == null) delButton?.visibility = View.INVISIBLE
         else delButton?.visibility = View.VISIBLE
-
         binding.brandName.addTextChangedListener(brandWatcher)
         binding.modelName.addTextChangedListener(modelWatcher)
         binding.mileage.addTextChangedListener(mileageWatcher)
