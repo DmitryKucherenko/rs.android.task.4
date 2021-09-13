@@ -4,7 +4,7 @@
     >
     <item
         android:id="@+id/sort_setting"
-        android:icon="@drawable/ic_filter"
+        android:icon="@drawable/ic_setting_icon"
         android:title="sort"
         app:showAsAction="ifRoom|withText"/>
 </menu>

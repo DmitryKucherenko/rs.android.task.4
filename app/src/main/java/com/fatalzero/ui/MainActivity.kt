@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import com.fatalzero.R
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), AddCarFragment.CallBack,
-    CarListFragment.CallBack,SettingsFragment.CallBack,ItemClickListener {
+    CarListFragment.CallBack,ItemClickListener {
 
     private var navController: NavController?=null
 

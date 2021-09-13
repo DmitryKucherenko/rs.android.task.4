@@ -11,6 +11,7 @@
     <SwitchPreference
         android:key="switch"
         android:title="Switch Cursor/Room"
+        android:summary="test"
         android:defaultValue="false"/>
 
 </PreferenceScreen>
