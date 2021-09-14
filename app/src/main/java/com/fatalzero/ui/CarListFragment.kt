@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -94,7 +93,7 @@ class CarListFragment : Fragment() {
         button = binding.floatingActionButton
         carRecyclerView = binding.carRecyclerView
         carRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = itemClickListener?.let { CarAdapter(it) }
+        adapter = CarAdapter(itemClickListener)
         carRecyclerView.adapter = adapter
         button?.setOnClickListener {
             callBack?.openAddFragment()

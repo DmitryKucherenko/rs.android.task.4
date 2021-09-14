@@ -7,7 +7,7 @@ import com.fatalzero.model.Car
 import com.fatalzero.ui.ItemClickListener
 
 class CarHolder(
-    private val itemClickListener: ItemClickListener,
+    private val itemClickListener: ItemClickListener?,
     binding: FragmentCarBinding
 
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -23,7 +23,7 @@ class CarHolder(
         model.text = car.model
         mileage.text = car.mileage.toString()
         itemView.setOnClickListener{
-            itemClickListener.onItemClick(car.id)
+            itemClickListener?.onItemClick(car.id)
         }
 
 
