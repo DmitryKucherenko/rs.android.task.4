@@ -21,6 +21,7 @@ class AddCarViewModel : ViewModel() {
     }
 
     fun loadCar(carId: Int) {
+        if(carId!=carIdLiveData.value)
         carIdLiveData.value = carId
     }
 
