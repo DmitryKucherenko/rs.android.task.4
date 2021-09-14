@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ class CarListFragment : Fragment() {
     private lateinit var carRecyclerView: RecyclerView
     private var adapter: CarAdapter? = null
     private var button: FloatingActionButton? = null
-    private val carListViewModel: CarListViewModel by activityViewModels()
+    private val carListViewModel: CarListViewModel by viewModels()
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

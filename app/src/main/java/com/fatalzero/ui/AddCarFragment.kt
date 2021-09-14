@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 
 import com.fatalzero.databinding.FragmentAddCarBinding
@@ -23,10 +24,7 @@ class AddCarFragment : Fragment() {
     private var delButton: Button? = null
     private var id: Int? = null
 
-    private val addCarViewModel: AddCarViewModel by lazy {
-
-        ViewModelProvider(this).get(AddCarViewModel::class.java)
-    }
+    private val addCarViewModel: AddCarViewModel by viewModels()
 
     private var callBack: CallBack? = null
 
