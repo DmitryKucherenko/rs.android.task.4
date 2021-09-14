@@ -5,6 +5,6 @@
     <item
         android:id="@+id/sort_setting"
         android:icon="@drawable/ic_setting_icon"
-        android:title="sort"
+        android:title="Settings"
         app:showAsAction="ifRoom|withText"/>
 </menu>

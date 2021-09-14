@@ -1,11 +1,9 @@
 package com.fatalzero.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.fatalzero.database.room.CarRepository
 import com.fatalzero.model.Car
+import kotlinx.coroutines.launch
 
 class AddCarViewModel : ViewModel() {
     private val carRepository = CarRepository.get()
@@ -17,7 +15,9 @@ class AddCarViewModel : ViewModel() {
         }
 
     fun addCar(car: Car) {
-        carRepository.addCar(car)
+        viewModelScope.launch {
+            carRepository.addCar(car)
+        }
     }
 
     fun loadCar(carId: Int) {
@@ -25,12 +25,18 @@ class AddCarViewModel : ViewModel() {
     }
 
     fun update(car: Car) {
-        carRepository.updateCar(car)
+        viewModelScope.launch {
+            carRepository.updateCar(car)
+        }
     }
 
     fun delete(car: Car) {
-        carRepository.deleteCar(car)
+        viewModelScope.launch {
+            carRepository.deleteCar(car)
+        }
     }
+
+
 
 }
 

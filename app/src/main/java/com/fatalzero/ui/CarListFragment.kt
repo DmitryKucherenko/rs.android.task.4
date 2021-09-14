@@ -1,13 +1,10 @@
 package com.fatalzero.ui
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +14,10 @@ import com.fatalzero.databinding.FragmentListBinding
 import com.fatalzero.model.Car
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
 private const val SORT_BY = "sort_by"
 private const val BRAND_FIELD = "brand"
 
 class CarListFragment : Fragment() {
-
-    private val TAG = "myLogs"
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -87,7 +81,6 @@ class CarListFragment : Fragment() {
     }
 
     private fun updateUI(cars: List<Car>) {
-        Log.d(TAG, "${cars.size}")
         adapter?.submitList(cars)
     }
 

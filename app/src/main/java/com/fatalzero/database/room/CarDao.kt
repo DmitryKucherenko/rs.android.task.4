@@ -23,12 +23,12 @@ interface CarDao{
     fun getCar(id:Int):LiveData<Car?>
 
     @Insert
-    fun addCar(car:Car)
+    suspend fun addCar(car:Car)
 
     @Update
-    fun updateCar(car:Car)
+    suspend fun updateCar(car:Car)
 
     @Delete
-    fun deleteCar(car:Car)
+    suspend fun deleteCar(car:Car)
 
 }
