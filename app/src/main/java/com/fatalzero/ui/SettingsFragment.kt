@@ -10,8 +10,8 @@ import com.fatalzero.R
 
 private const val SORT_BY_KEY = "sort_by"
 private const val SWITCH_KEY = "switch"
-private const val ROOM = "ROOM"
-private const val CURSOR = "switch"
+private const val ROOM = "Room"
+private const val CURSOR = "Cursor"
 private const val BRAND_SORT = "brand"
 
 
@@ -38,7 +38,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
             SORT_BY_KEY -> listPreference?.summary =
-                SORT_BY_KEY + sharedPreferences?.getString(SORT_BY_KEY, BRAND_SORT)
+                getString(R.string.sort_by_word)+" " + sharedPreferences?.getString(SORT_BY_KEY, BRAND_SORT)
             SWITCH_KEY -> switchPreference?.summary =
                 if (sharedPreferences?.getBoolean(SWITCH_KEY, true) == true) ROOM else CURSOR
 

@@ -86,6 +86,7 @@ class CarDatabaseCursor(context: Context) :
 
 
     override suspend fun addCar(car: Car) {
+        println("addCar Cursor")
         val db = writableDatabase
         val values = ContentValues()
         values.put(DBConst.BRAND_FIELD, car.brand)
@@ -96,6 +97,7 @@ class CarDatabaseCursor(context: Context) :
     }
 
     override suspend fun updateCar(car: Car) {
+        println("update Cursor")
         val db = writableDatabase
         val values = ContentValues()
         values.put(DBConst.ID, car.id)
