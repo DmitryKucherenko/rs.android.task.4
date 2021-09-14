@@ -77,8 +77,6 @@ class CarListFragment : Fragment() {
                     updateUI(it)
                 }
             })
-
-
     }
 
     private fun updateUI(cars: List<Car>) {
