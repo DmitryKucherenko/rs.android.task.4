@@ -88,7 +88,7 @@ class CarListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
         button = binding.floatingActionButton

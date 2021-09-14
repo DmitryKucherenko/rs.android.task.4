@@ -12,7 +12,7 @@ class CarAdapter(private val itemClickListener: ItemClickListener) : ListAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = FragmentCarBinding.inflate(layoutInflater, parent, false)
-        return CarHolder(itemClickListener,binding,binding.root.context.resources)
+        return CarHolder(itemClickListener, binding)
     }
 
     override fun onBindViewHolder(holder: CarHolder, position: Int) {

@@ -10,6 +10,7 @@
     <string name="modelView">Model:</string>
     <string name="mileageView">Mileage:</string>
     <string name="sort_by_word">Sort by </string>
+    <string name="delete">Delete</string>
     <string-array name="sort_names">
         <item>Brand</item>
         <item>Model</item>

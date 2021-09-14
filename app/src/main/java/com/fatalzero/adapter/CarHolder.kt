@@ -1,6 +1,5 @@
 package com.fatalzero.adapter
 
-import android.content.res.Resources
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fatalzero.databinding.FragmentCarBinding
@@ -8,9 +7,8 @@ import com.fatalzero.model.Car
 import com.fatalzero.ui.ItemClickListener
 
 class CarHolder(
-    private val itemClickListener:ItemClickListener,
-    private val binding: FragmentCarBinding,
-    private val resources: Resources
+    private val itemClickListener: ItemClickListener,
+    binding: FragmentCarBinding
 
 ) : RecyclerView.ViewHolder(binding.root) {
     private var car: Car? = null
